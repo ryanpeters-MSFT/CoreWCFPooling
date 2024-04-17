@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.ObjectPool;
-using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -18,19 +17,11 @@ builder.Services.AddSingleton<ObjectPool<Service>>(serviceProvider =>
 
 builder.Services.AddTransient<Service>(serviceProvider =>
 {
-    var stopwatch = new Stopwatch();
-
-    var pool = serviceProvider.GetService<ObjectPool<Service>>();
-
-    stopwatch.Start();
+    var pool = serviceProvider.GetRequiredService<ObjectPool<Service>>();
 
     var instance = pool.Get();
 
     instance.Pool = pool;
-
-    stopwatch.Stop();
-
-    Console.WriteLine($"RETRIEVED instance => \tTime: {stopwatch.ElapsedMilliseconds}ms\tID: {instance.GetInstanceId()}");
 
     return instance;
 });
