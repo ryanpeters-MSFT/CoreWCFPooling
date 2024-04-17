@@ -26,18 +26,13 @@ builder.Services.AddTransient<Service>(serviceProvider =>
 
     var instance = pool.Get();
 
+    instance.Pool = pool;
+
     stopwatch.Stop();
 
     Console.WriteLine($"RETRIEVED instance => \tTime: {stopwatch.ElapsedMilliseconds}ms\tID: {instance.GetInstanceId()}");
 
-    try
-    {
-        return instance;
-    }
-    finally
-    {
-        pool.Return(instance);
-    }
+    return instance;
 });
 
 builder.Services.AddServiceModelServices();

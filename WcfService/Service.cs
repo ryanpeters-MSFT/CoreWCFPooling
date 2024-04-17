@@ -1,6 +1,6 @@
 namespace WcfService
 {
-    public class Service : IService
+    public class Service : PooledService<Service>, IService
     { 
         private readonly Guid id = Guid.NewGuid();
 

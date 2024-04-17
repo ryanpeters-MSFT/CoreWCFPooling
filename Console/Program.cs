@@ -12,7 +12,7 @@ var channel = factory.CreateChannel();
 
 var requestTasks = new List<Task<Guid>>();
 
-for (var i = 0; i < 5; i++)
+for (var i = 0; i < 20; i++)
 {
     var task = channel.GetInstanceIdAsync();
 
