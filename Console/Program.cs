@@ -1,20 +1,16 @@
-﻿using System.ServiceModel;
-using WcfService;
+﻿using WcfService;
 
 // wait for WCF service to spin-up
 Console.WriteLine("Waiting 2 seconds for service to become available...\n");
 Thread.Sleep(2000);
 
-var endpoint = new EndpointAddress("http://localhost:5189/service.svc");
-var factory = new ChannelFactory<IService>(new BasicHttpBinding(), endpoint);
-
-var channel = factory.CreateChannel();
+var client = new ServiceClient();
 
 var requestTasks = new List<Task<Guid>>();
 
-for (var i = 0; i < 20; i++)
+for (var i = 0; i < 10; i++)
 {
-    var task = channel.GetInstanceIdAsync();
+    var task = client.GetInstanceIdAsync();
 
     requestTasks.Add(task);
 
